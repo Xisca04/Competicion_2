@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MusicManager : MonoBehaviour
 {
     public AudioClip[] songs;
-    public int currentSong;
+    public TextMeshProUGUI songText;
 
     private AudioSource _audioSource;
-
+    private int currentSong;
     private void Start()
     {
-        NextSong();
-        PreviousSong();
+        UpdateSong();
     }
 
     private void Awake()
@@ -36,6 +36,7 @@ public class MusicManager : MonoBehaviour
         }
         
         PlaySong();
+        UpdateSong();
     }
 
     public void PreviousSong()
@@ -48,6 +49,18 @@ public class MusicManager : MonoBehaviour
         }
 
         PlaySong();
+        UpdateSong();
     }
 
+    public void RandomSong()
+    {
+        currentSong = Random.Range(0, songs.Length);
+        PlaySong();
+        UpdateSong();
+    }
+
+    private void UpdateSong()
+    {
+        songText.text = songs[currentSong].name;
+    }
 }
