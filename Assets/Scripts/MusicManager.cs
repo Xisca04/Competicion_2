@@ -7,12 +7,15 @@ public class MusicManager : MonoBehaviour
 {
     public AudioClip[] songs;
     public TextMeshProUGUI songText;
+    public TextMeshProUGUI nameArtistText;
 
     private AudioSource _audioSource;
     private int currentSong;
+    
     private void Start()
     {
         UpdateSong();
+        UpdateNameArtist();
     }
 
     private void Awake()
@@ -37,6 +40,7 @@ public class MusicManager : MonoBehaviour
         
         PlaySong();
         UpdateSong();
+        UpdateNameArtist();
     }
 
     public void PreviousSong()
@@ -50,6 +54,7 @@ public class MusicManager : MonoBehaviour
 
         PlaySong();
         UpdateSong();
+        UpdateNameArtist();
     }
 
     public void RandomSong()
@@ -57,10 +62,16 @@ public class MusicManager : MonoBehaviour
         currentSong = Random.Range(0, songs.Length);
         PlaySong();
         UpdateSong();
+        UpdateNameArtist();
     }
 
     private void UpdateSong()
     {
         songText.text = songs[currentSong].name;
+    }
+
+    private void UpdateNameArtist()
+    {
+        nameArtistText.text = songs[currentSong].name;
     }
 }
