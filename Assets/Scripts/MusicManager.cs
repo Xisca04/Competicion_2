@@ -6,6 +6,7 @@ using TMPro;
 public class MusicManager : MonoBehaviour
 {
     public AudioClip[] songs;
+    public string[] nameArtist;
     public TextMeshProUGUI songText;
     public TextMeshProUGUI nameArtistText;
 
@@ -72,6 +73,6 @@ public class MusicManager : MonoBehaviour
 
     private void UpdateNameArtist()
     {
-        nameArtistText.text = songs[currentSong].name;
+        nameArtistText.text = nameArtist[currentSong];
     }
 }
