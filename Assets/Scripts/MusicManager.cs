@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class MusicManager : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class MusicManager : MonoBehaviour
     {
         UpdateSong();
         UpdateNameArtist();
+
+        _slider.value = PlayerPrefs.GetFloat("volumenAudio", 0.5f); // Así se obtiene un valor
+        AudioListener.volume = _slider.value;
+        
     }
 
     private void Awake()
@@ -74,5 +79,31 @@ public class MusicManager : MonoBehaviour
     private void UpdateNameArtist()
     {
         nameArtistText.text = nameArtist[currentSong];
+    }
+
+    // Volume Slider
+
+    public Slider _slider;
+    public float sliderValue;
+    public Image imageMute;
+
+    public void ChangeSlider(float valor)
+    {
+        sliderValue = valor;
+        PlayerPrefs.SetFloat("volumenAudio", sliderValue);
+        AudioListener.volume = sliderValue;
+        Mute();
+    }
+
+    public void Mute()
+    {
+        if(sliderValue == 0)
+        {
+            imageMute.enabled = true;
+        }
+        else
+        {
+            imageMute.enabled = false;
+        }
     }
 }
