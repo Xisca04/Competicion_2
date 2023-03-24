@@ -21,9 +21,13 @@ public class MusicManager : MonoBehaviour
         UpdateSong();
         UpdateNameArtist();
 
+<<<<<<< HEAD
         StartCoroutine(FadeOut());
 
         _slider.value = PlayerPrefs.GetFloat("volumenAudio", 0.5f); // Así se obtiene un valor
+=======
+        _slider.value = PlayerPrefs.GetFloat("songs", 1f); // Así se obtiene un valor
+>>>>>>> 2c86807b0fc5c66642609d4de478be26cefe68e8
         AudioListener.volume = _slider.value;
         
     }
