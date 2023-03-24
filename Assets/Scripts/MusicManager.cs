@@ -13,11 +13,15 @@ public class MusicManager : MonoBehaviour
 
     private AudioSource _audioSource;
     private int currentSong;
+
+    private MeshRenderer _meshRenderer;
     
     private void Start()
     {
         UpdateSong();
         UpdateNameArtist();
+
+        StartCoroutine(FadeOut());
 
         _slider.value = PlayerPrefs.GetFloat("volumenAudio", 0.5f); // Así se obtiene un valor
         AudioListener.volume = _slider.value;
@@ -79,6 +83,27 @@ public class MusicManager : MonoBehaviour
     private void UpdateNameArtist()
     {
         nameArtistText.text = nameArtist[currentSong];
+    }
+
+    private Color RandomColor()
+    {
+        float r = Random.Range(0f, 1f);
+        float g = Random.Range(0f, 1f);
+        float b = Random.Range(0f, 1f);
+
+        return new Color(r, g, b);
+    }
+
+    private IEnumerator FadeOut()  // hacerse transparente
+    {
+        Color color = _meshRenderer.material.color;
+        for (float i = 1; i >= 0; i -= 0.1f)
+        {
+            color = RandomColor();  // Cambio color a cada iteración
+            color = new Color(color.r, color.g, color.b, i);
+            _meshRenderer.material.color = color;
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     // Volume Slider
