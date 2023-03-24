@@ -10,26 +10,19 @@ public class MusicManager : MonoBehaviour
     public string[] nameArtist;
     public TextMeshProUGUI songText;
     public TextMeshProUGUI nameArtistText;
+    public Color[] colors;
 
     private AudioSource _audioSource;
     private int currentSong;
 
-    private MeshRenderer _meshRenderer;
+    
     
     private void Start()
     {
         UpdateSong();
         UpdateNameArtist();
 
-<<<<<<< HEAD
-        StartCoroutine(FadeOut());
-
-        _slider.value = PlayerPrefs.GetFloat("volumenAudio", 0.5f); // Así se obtiene un valor
-=======
-        _slider.value = PlayerPrefs.GetFloat("songs", 1f); // Así se obtiene un valor
->>>>>>> 2c86807b0fc5c66642609d4de478be26cefe68e8
-        AudioListener.volume = _slider.value;
-        
+        Camera.main.backgroundColor = colors[Random.Range(0, colors.Length)];
     }
 
     private void Awake()
@@ -89,50 +82,4 @@ public class MusicManager : MonoBehaviour
         nameArtistText.text = nameArtist[currentSong];
     }
 
-    private Color RandomColor()
-    {
-        float r = Random.Range(0f, 1f);
-        float g = Random.Range(0f, 1f);
-        float b = Random.Range(0f, 1f);
-
-        return new Color(r, g, b);
-    }
-
-    private IEnumerator FadeOut()  // hacerse transparente
-    {
-        Color color = _meshRenderer.material.color;
-        for (float i = 1; i >= 0; i -= 0.1f)
-        {
-            color = RandomColor();  // Cambio color a cada iteración
-            color = new Color(color.r, color.g, color.b, i);
-            _meshRenderer.material.color = color;
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
-    // Volume Slider
-
-    public Slider _slider;
-    public float sliderValue;
-    public Image imageMute;
-
-    public void ChangeSlider(float valor)
-    {
-        sliderValue = valor;
-        PlayerPrefs.SetFloat("volumenAudio", sliderValue);
-        AudioListener.volume = sliderValue;
-        Mute();
-    }
-
-    public void Mute()
-    {
-        if(sliderValue == 0)
-        {
-            imageMute.enabled = true;
-        }
-        else
-        {
-            imageMute.enabled = false;
-        }
-    }
 }
