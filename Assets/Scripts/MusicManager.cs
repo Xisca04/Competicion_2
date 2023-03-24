@@ -16,7 +16,6 @@ public class MusicManager : MonoBehaviour
     private int currentSong;
 
     
-    
     private void Start()
     {
         UpdateSong();
@@ -82,4 +81,19 @@ public class MusicManager : MonoBehaviour
         nameArtistText.text = nameArtist[currentSong];
     }
 
+    public void RebootSong()
+    {
+        _audioSource.clip = songs[currentSong];
+        _audioSource.Play();
+    }
+
+    public void OnMusic()
+    {
+        PlaySong();
+    }
+
+    public void OffMusic()
+    {
+        _audioSource.Stop();
+    }
 }
